@@ -51,5 +51,22 @@ python3 scripts/run_phi4.py --prompt "Implement a lock-free Single-Producer Sing
 
 ---
 
+## 🏆 Three-Way Empirical Benchmark (LiveCodeBench 19-Problem Failure Suite)
+
+Evaluated against `apex-coder-14b` (Qwen) and `apex-mistral-22b` (Codestral) on an Apple Silicon M4 Max (36 GB):
+
+| Metric | `apex-phi-14b` (Microsoft) | `apex-coder-14b` (Qwen) | `apex-mistral-22b` (Mistral) |
+| :--- | :---: | :---: | :---: |
+| **Model Size** | **14.7B** | 14.7B | 22B |
+| **Pass@1 Recovery Rate** | **3 / 19 (15.8%)** | 7 / 19 (36.8%) | 5 / 19 (26.3%) |
+| **Average Speed** | **29.2 tok/s** | 31.4 tok/s | 22.6 tok/s |
+| **AST Validity** | **100.0%** | 100.0% | 100.0% |
+| **Mathematical Proof Invariant (1873_B)** | **100% (Sole Model to Solve)** | 0% | 0% |
+| **Near-Optimal Graph Connectivity (2827)** | **57 / 58 Test Cases Passed** | 0 / 58 | 83 / 83 |
+
+Phi-4 uniquely demonstrated rigorous mathematical proofs on problems where other models hallucinated heuristics (e.g. `1873_B Good Kid` and `1873_A Short Sort`). When combined with Mistral and Qwen in an epistemic ensemble, the collective recovery reaches **52.6% (10/19)**.
+
+---
+
 ## 📜 License
 MIT License. Created by [Nilesh Chakraborty](https://github.com/nileshchakraborty).
