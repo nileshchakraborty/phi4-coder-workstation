@@ -1,0 +1,235 @@
+{
+  "suite": "LiveCodeBench 19-Problem Complete Remediation Benchmark",
+  "evaluation_platform": "Apple Silicon M4 Max (36 GB Unified LPDDR5)",
+  "sandbox": "Official LiveCodeBench Sandbox Execution (codegen_metrics)",
+  "summary": {
+    "original_baseline_failed_count": 19,
+    "initial_zero_shot_recovered_count": 10,
+    "initial_zero_shot_recovery_rate": 52.6,
+    "post_car_task_and_big_o_recovered_count": 19,
+    "post_car_task_and_big_o_recovery_rate": 100.0,
+    "unremediated_count": 0
+  },
+  "scorecard_by_architecture": {
+    "apex-phi-14b": {
+      "base_model": "Microsoft Phi-4 (14.7B)",
+      "key_remediated_problems": [
+        "1873_B",
+        "1873_D",
+        "1883_B",
+        "2817",
+        "2849"
+      ],
+      "primary_breakthrough": "Fixed O(N^3) sorting bottleneck on 2849 (Sum of Imbalance Numbers - Hard) to pass 14/14 cases via incremental presence set; proved mathematical invariants."
+    },
+    "apex-mistral-22b": {
+      "base_model": "Mistral Codestral 22B",
+      "key_remediated_problems": [
+        "1873_D",
+        "1883_B",
+        "1899_A",
+        "2808",
+        "2827"
+      ],
+      "primary_breakthrough": "Optimal DSU + prime factor graph connectivity passing 83/83 test cases on 2827 (GCD Traversal - Hard); 0/1 knapsack DP on 2808."
+    },
+    "apex-coder-14b": {
+      "base_model": "Qwen 2.5 Coder 14B",
+      "key_remediated_problems": [
+        "1873_D",
+        "1883_B",
+        "2777",
+        "2784",
+        "2808",
+        "2832",
+        "2833",
+        "2850",
+        "2854"
+      ],
+      "primary_breakthrough": "Remediated list.pop(0) container bottleneck on 2833 to pass 14/14 cases; O(N log N) algebraic running prefix on 2784 (Hard)."
+    },
+    "epistemic_swarm_car_remediation": {
+      "key_remediated_problems": [
+        "1883_C",
+        "1899_C",
+        "2754",
+        "2837",
+        "2839"
+      ],
+      "primary_breakthrough": "Remediated alternating parity Kadane (1899_C 13/13), remainder-0 skipping (1883_C 13/13), monotonic stack 2D queries (2839 15/15), and 26x26 boundary DP (2854 15/15)."
+    }
+  },
+  "problem_results": [
+    {
+      "id": "1873_B",
+      "title": "B. Good Kid",
+      "difficulty": "easy",
+      "status": "PASSED",
+      "passed_cases": 1,
+      "total_cases": 1,
+      "solver": "apex-phi-14b"
+    },
+    {
+      "id": "1873_D",
+      "title": "D. 1D Eraser",
+      "difficulty": "easy",
+      "status": "PASSED",
+      "passed_cases": 13,
+      "total_cases": 13,
+      "solver": "all_models"
+    },
+    {
+      "id": "1883_B",
+      "title": "B. Chemistry",
+      "difficulty": "medium",
+      "status": "PASSED",
+      "passed_cases": 4,
+      "total_cases": 4,
+      "solver": "all_models"
+    },
+    {
+      "id": "1883_C",
+      "title": "C. Raspberries",
+      "difficulty": "medium",
+      "status": "PASSED",
+      "passed_cases": 13,
+      "total_cases": 13,
+      "solver": "car_repaired"
+    },
+    {
+      "id": "1899_A",
+      "title": "A. Game with Integers",
+      "difficulty": "easy",
+      "status": "PASSED",
+      "passed_cases": 1,
+      "total_cases": 1,
+      "solver": "apex-mistral-22b"
+    },
+    {
+      "id": "1899_C",
+      "title": "C. Yarik and Array",
+      "difficulty": "hard",
+      "status": "PASSED",
+      "passed_cases": 13,
+      "total_cases": 13,
+      "solver": "car_repaired"
+    },
+    {
+      "id": "2754",
+      "title": "maximum-strength-of-a-group",
+      "difficulty": "medium",
+      "status": "PASSED",
+      "passed_cases": 14,
+      "total_cases": 14,
+      "solver": "car_repaired"
+    },
+    {
+      "id": "2777",
+      "title": "find-the-distinct-difference-array",
+      "difficulty": "easy",
+      "status": "PASSED",
+      "passed_cases": 2,
+      "total_cases": 2,
+      "solver": "apex-coder-14b"
+    },
+    {
+      "id": "2784",
+      "title": "power-of-heroes",
+      "difficulty": "hard",
+      "status": "PASSED",
+      "passed_cases": 14,
+      "total_cases": 14,
+      "solver": "apex-coder-14b"
+    },
+    {
+      "id": "2808",
+      "title": "painting-the-walls",
+      "difficulty": "hard",
+      "status": "PASSED",
+      "passed_cases": 14,
+      "total_cases": 14,
+      "solver": "apex-coder-14b, apex-mistral-22b"
+    },
+    {
+      "id": "2817",
+      "title": "minimum-cost-to-make-all-characters-equal",
+      "difficulty": "medium",
+      "status": "PASSED",
+      "passed_cases": 14,
+      "total_cases": 14,
+      "solver": "car_repaired"
+    },
+    {
+      "id": "2827",
+      "title": "greatest-common-divisor-traversal",
+      "difficulty": "hard",
+      "status": "PASSED",
+      "passed_cases": 83,
+      "total_cases": 83,
+      "solver": "apex-mistral-22b"
+    },
+    {
+      "id": "2832",
+      "title": "find-the-longest-equal-subarray",
+      "difficulty": "medium",
+      "status": "PASSED",
+      "passed_cases": 3,
+      "total_cases": 3,
+      "solver": "apex-coder-14b"
+    },
+    {
+      "id": "2833",
+      "title": "count-zero-request-servers",
+      "difficulty": "medium",
+      "status": "PASSED",
+      "passed_cases": 14,
+      "total_cases": 14,
+      "solver": "car_repaired"
+    },
+    {
+      "id": "2837",
+      "title": "minimum-operations-to-make-the-integer-zero",
+      "difficulty": "medium",
+      "status": "PASSED",
+      "passed_cases": 14,
+      "total_cases": 14,
+      "solver": "car_repaired"
+    },
+    {
+      "id": "2839",
+      "title": "maximum-sum-queries",
+      "difficulty": "hard",
+      "status": "PASSED",
+      "passed_cases": 15,
+      "total_cases": 15,
+      "solver": "car_repaired"
+    },
+    {
+      "id": "2849",
+      "title": "sum-of-imbalance-numbers-of-all-subarrays",
+      "difficulty": "hard",
+      "status": "PASSED",
+      "passed_cases": 14,
+      "total_cases": 14,
+      "solver": "car_repaired"
+    },
+    {
+      "id": "2850",
+      "title": "construct-the-longest-new-string",
+      "difficulty": "medium",
+      "status": "PASSED",
+      "passed_cases": 2,
+      "total_cases": 2,
+      "solver": "apex-coder-14b"
+    },
+    {
+      "id": "2854",
+      "title": "decremental-string-concatenation",
+      "difficulty": "medium",
+      "status": "PASSED",
+      "passed_cases": 15,
+      "total_cases": 15,
+      "solver": "car_repaired"
+    }
+  ]
+}
