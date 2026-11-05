@@ -38,8 +38,24 @@ class CPCodeAuditVisitor(ast.NodeVisitor):
                         self.read_called_inside_loop = True
                     else:
                         self.read_called_outside = True
+            
+            # Check for list.pop(0) in loops (O(N) per pop -> O(N^2) TLE)
+            if func_name == "pop" and self.in_loop > 0:
+                if len(node.args) == 1 and isinstance(node.args[0], ast.Constant) and node.args[0].value == 0:
+                    self.issues.append({
+                        "type": "LIST_POP_ZERO_IN_LOOP_TLE",
+                        "line": getattr(node, "lineno", 0),
+                        "message": "Calling `.pop(0)` on a standard Python list inside a loop is O(N) per operation, causing O(N^2) TLE on large inputs. Use `collections.deque` with `.popleft()` or maintain a two-pointer sliding window index."
+                    })
         elif isinstance(node.func, ast.Name):
             func_name = node.func.id
+            # Check for sorted() inside nested loops (O(N^3) TLE)
+            if func_name == "sorted" and self.in_loop >= 2:
+                self.issues.append({
+                    "type": "SORTED_IN_NESTED_LOOP_TLE",
+                    "line": getattr(node, "lineno", 0),
+                    "message": "Calling `sorted(...)` inside nested loops is O(N^3 log N) and will trigger Time Limit Exceeded (TLE) on N >= 1000. Maintain running state using two pointers, a frequency map, or prefix trees."
+                })
 
         self.generic_visit(node)
 
@@ -71,6 +87,7 @@ def audit_code(code: str) -> Dict[str, Any]:
     # 2. AST Visitor checks
     visitor = CPCodeAuditVisitor(code)
     visitor.visit(tree)
+    violations.extend(visitor.issues)
 
     if visitor.read_called_inside_loop:
         violations.append({
